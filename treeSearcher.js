@@ -30,7 +30,11 @@ svg.append('image')
 function projectData(dataPoint) {
 	return {
 		'lon' : dataPoint.Longitude,
-		'lat' : dataPoint.Latitude
+		'lat' : dataPoint.Latitude,
+    'TreeID': dataPoint.TreeID,
+    'qSpecies': dataPoint.qSpecies,
+    'qAddress': dataPoint.qSpecies,
+    'DBH': dataPoint.DBH
 	}
 }
 
@@ -42,8 +46,9 @@ function loadVisualization(allData) {
 		.style("fill",	"pink")
 		.attr("r",	4)
 		.attr("cx",	function(d)	{	return projection([d.lon, d.lat])[0];	})
-		.attr("cy",	function(d)	{	return projection([d.lon, d.lat])[1];	});
-	isLoaded = true;
+		.attr("cy",	function(d)	{	return projection([d.lon, d.lat])[1];	})
+    .on('mouseover', function(d){
+      console.log(d); });
 };
 
 function loadCircles() {
@@ -56,8 +61,6 @@ function loadCircles() {
           y: mapHeight/2
       };
   });
-
-  // update(currCircles);
 
   circle_position_data.forEach(function(d, i) {
       d.i = i;
@@ -90,7 +93,6 @@ function loadCircles() {
      .attr("cy", function(d) { return d.y; })
      .call(d3.drag().on("drag", on_circle_drag));
 
-
   function on_resize(d, i) {
      g.select("#circleB_border" + d.i)
          .attr("r", function (c) {
@@ -103,6 +105,7 @@ function loadCircles() {
   }
 
    function on_circle_drag(d, i) {
+     console.log('wsup');
        g.select("#circleB" + d.i)
            .attr("cx", d.x = d3.event.x)
            .attr("cy", d.y = d3.event.y);
@@ -111,7 +114,9 @@ function loadCircles() {
            .attr("cx", d.x = d3.event.x)
            .attr("cy", d.y = d3.event.y);
    }
+
 }
 
 d3.csv("/data/trees.csv", projectData, loadVisualization);
 setTimeout(loadCircles, 500);
+
