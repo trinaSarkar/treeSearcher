@@ -19,7 +19,7 @@ var svg = d3.select('body').append('svg')
 .attr('width', mapWidth)
 .attr('height', mapHeight);
 
-// Add SVG map at correct size, assuming map is saved in a subdirectory called `data`
+// Add SVG map at correct size, assuming map is saved in a subdirectory called data
 svg.append('image')
 .attr('id', 'map')
 .attr('width', mapWidth)
@@ -35,52 +35,83 @@ function projectData(dataPoint) {
 }
 
 function loadVisualization(allData) {
-	svg.selectAll("circle")	
-		.data(allData)	
-		.enter()																		
-		.append("circle")												
-		.style("fill",	"pink")												
-		.attr("r",	4)												
-		.attr("cx",	function(d)	{	return projection([d.lon, d.lat])[0];	})												
+	svg.selectAll("circle")
+		.data(allData)
+		.enter()
+		.append("circle")
+		.style("fill",	"pink")
+		.attr("r",	4)
+		.attr("cx",	function(d)	{	return projection([d.lon, d.lat])[0];	})
 		.attr("cy",	function(d)	{	return projection([d.lon, d.lat])[1];	});
-	isLoaded = true; 
+	isLoaded = true;
 };
 
 function loadCircles() {
 
-	svg.append('circle')
-	   .style("fill",	"gray")	
-	   .style('opacity', 0.5)
-	   .attr('id', "circleB")											
-	   .attr("r",	60)
-	   .attr('cx', mapWidth/2)
-	   .attr('cy', mapHeight/2)
-	   .attr('stroke', 'black')
-	   .attr('stroke-width', '3')
-	   .call(d3.drag().on("drag",	function() {
-	   	d3.select(this)
-	   	.attr("cx",	d3.event.x)
-		.attr("cy", d3.event.y);
-	   } ));
+  var currCircles = 2;
 
-  svg.append('circle')
-	   .style("fill",	"gray")	
-	   .style('opacity', 0.5)	
-	   .attr('id', "circleA")										
+  circle_position_data = d3.range(currCircles).map(function() {
+      return {
+          x: mapWidth/2,
+          y: mapHeight/2
+      };
+  });
+
+  // update(currCircles);
+
+  circle_position_data.forEach(function(d, i) {
+      d.i = i;
+  });
+
+  var circles = svg.selectAll("g")
+      .data(circle_position_data);
+
+  var g = circles.enter()
+      .append("g");
+
+  circles.exit().remove();
+
+  // OUR CODE
+  g.append('circle')
+    .style("fill",	"red")
+    .style('opacity', 0.5)
+    .attr("id", function(d) { return "circleB_border" + d.i; })
+    .attr("r",	65)
+    .attr("cx", function(d) { return d.x; })
+    .attr("cy", function(d) { return d.y; })
+    .call(d3.drag().on("drag", on_resize));
+
+	g.append('circle')
+	   .style("fill",	"gray")
+	   .style('opacity', 0.5)
+     .attr("id", function(d) { return "circleB" + d.i; })
 	   .attr("r",	60)
-	   .attr('cx', mapWidth/2 - 150)
-	   .attr('cy', mapHeight/2 + 150)
-	   .attr('stroke', 'black')
-	   .attr('stroke-width', '3')
-	   .call(d3.drag().on("drag",	function() {
-	   	d3.select(this)
-	   	.attr("cx",	d3.event.x)
-		.attr("cy", d3.event.y);
-	   } ));
+     .attr("cx", function(d) { return d.x; })
+     .attr("cy", function(d) { return d.y; })
+     .call(d3.drag().on("drag", on_circle_drag));
+
+
+  function on_resize(d, i) {
+     g.select("#circleB_border" + d.i)
+         .attr("r", function (c) {
+             return Math.pow(Math.pow(this.attributes.cx.value - d3.event.x, 2) + Math.pow(this.attributes.cy.value - d3.event.y, 2), 0.5) + 5;
+         });
+     g.selectAll("#circleB" + d.i)
+         .attr("r", function (c) {
+             return Math.pow(Math.pow(this.attributes.cx.value - d3.event.x, 2) + Math.pow(this.attributes.cy.value - d3.event.y, 2), 0.5);
+         });
+  }
+
+   function on_circle_drag(d, i) {
+       g.select("#circleB" + d.i)
+           .attr("cx", d.x = d3.event.x)
+           .attr("cy", d.y = d3.event.y);
+
+       g.select("#circleB_border" + d.i)
+           .attr("cx", d.x = d3.event.x)
+           .attr("cy", d.y = d3.event.y);
+   }
 }
 
-
-
 d3.csv("/data/trees.csv", projectData, loadVisualization);
-setTimeout(loadCircles, 500); 
-
+setTimeout(loadCircles, 500);
