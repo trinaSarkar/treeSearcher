@@ -1,0 +1,32 @@
+#mapSVG {
+	transform: translateX(700px);
+	position: absolute;
+}
+
+div {
+	font-family: "TheBraveryLiteVer";
+	font-size: 100px;
+	position: absolute;
+	margin-top: 0px;
+}
+
+p {
+	position: absolute;
+}
+
+#byline {
+	font-size: 30px;
+	padding-left: 20px;
+}
+@font-face {
+	font-family: "TheBraveryLiteVer";
+	src: url("/The Bravery Lite Ver.otf");
+}
+
+#circleA:hover{
+	fill: yellow;
+}
+
+#grayCircle {
+	position: absolute;
+}
