@@ -15,8 +15,11 @@ p {
 }
 
 #byline {
-	font-size: 30px;
-	padding-left: 20px;
+/* 	font-size: 30px;
+	padding-left: 20px; */
+	font-size: 20px;
+	font-style: italic;
+	padding-left: 90px;
 }
 @font-face {
 	font-family: "TheBraveryLiteVer";
@@ -30,6 +33,7 @@ p {
 #slidecontainer {
     width: 100%; /* Width of the outside container */
     position: absolute;
+    padding-left: 30px;
 }
 
 /* The slider itself */
@@ -78,4 +82,24 @@ p {
 
 label {
 	font-size: 20px;
+}
+
+#selectorContainer {
+    width: 80%; /* Width of the outside container */
+		height: 80px;
+		border: 2px solid pink;
+		padding: 25px;
+		margin: 15px;
+    position: absolute;
+}
+
+#selectorTitle {
+	font-size: 30px;
+	padding-left: 0px;
+}
+
+#TreeInfo {
+	width: 200px; /* Width of the outside container */
+	height: 300px;
+	font-size: 15px;
 }
