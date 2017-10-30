@@ -6,31 +6,47 @@
 <body>
 	<script src="treeSearcher.js"></script>
 	<div id = "heading">
-		Tree Searcher <br>
+		<br>
+		<br>
+		<span id = "title">Tree Searcher</span>
+		<br>
 		<span id = "byline">Search through the trees in San Francisco!</span>
-		<div id="slidecontainer">
-			<br>
-			<span id = "filterInstructions"> Filter by tree diameter at breast height </span>
-			<br>
-			<label for="dbhRange">
-         		Maximum Diameter of Breast Height = <span id="dbhRange-value"></span>
-  			</label>
-  			<input type="range" min="1" max="150" class="slider" value="50" onchange="update(value);" id="dbhRange">
-		</div>
-		<div id = "genButton">
-			<button type="button" onclick="loadIntersection();">Generate intersection</button>
-		</div>
-		<br><br><br>
-		<div id="selectorContainer">
-			<br>
-			<span id = "selectorTitle"> Select an individual tree </span>
-			<br><br><br>
-			<div id="TreeInfo">
-				<span id="TreeID"></span><br>
-				<span id='qSpecies'></span><br>
-				<span id='DBH'></span><br>
+	</div>
+		<br><br><br><br><br>
+		<div id="filters">
+			<span id = "filterTitle"> Filters</span>
+			<hr align="left">
+			<div class="filterContainer" id="sliderContainer">
+				<br>
+				<span id = "filterSubtitle"> 1. Filter by tree diameter at breast height </span>
+				<br>
+				<span id = "filterInstructions"> Slide the range to filter by maximum tree diameter at breast height! </span>
+				<br>
+				<div>
+  				<span><input type="range" min="0" max="150" value="50" class="slider" id="myRange"></span>
+	 			<span class="range-slider__value"></span>
+	 		</div>
+			</div>
+			<div class="filterContainer">
+				<br>
+				<span id = "filterSubtitle"> 2. Highlight individual tree </span>
+				<br>
+				<span id = "filterInstructions"> Hover over a pink circle to learn about a specific tree! </span>
+				<br>
+				<div id="TreeInfo">
+					<span id='qSpecies'></span><br>
+					<span id='DBH'></span><br>
+				</div>
+			</div>
+			<div class = "filterContainer">
+				<br>
+				<span id = "filterSubtitle"> 3. Filter by location </span>
+				<br>
+				<span id = "filterInstructions"> Drag and resize the two red circles as you wish using their borders, then click generate intersection to find the trees in the intersection between the two circles! </span>
+				<br>
+				<button id="intersection"> Generate Intersection </button>
 			</div>
 		</div>
-	</div>
+
 </body>
 </html>

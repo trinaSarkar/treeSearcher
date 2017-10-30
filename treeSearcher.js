@@ -42,28 +42,41 @@ function loadVisualization(error, allData) {
   let input = d3.selectAll('input');
   drawScatterPlot(allData);
   input.on('change', function() {
+    d3.select('.range-slider__value').html(this.value);
     let filteredData = allData.filter(d => d.DBH < this.value && d.DBH != "");
     drawScatterPlot(filteredData);  
+  });
+  let button = d3.selectAll('button');
+  button.on("click", function() {
+    let r1 = d3.select('#circle_border0').attr('r');
+    var circle1 = [d3.select('#circle_border0').attr('cx'), d3.select('#circle_border0').attr('cy')];
+    let r2 = d3.select('#circle_border1').attr('r');
+    var circle2 = [d3.select('#circle_border1').attr('cx'), d3.select('#circle_border1').attr('cy')];
+    let filteredData = allData.filter(function(d) {
+      var point = projection([d.lon, d.lat]);
+      return pointInCircle(point[0], point[1], circle1[0], circle1[1], r1) && 
+      pointInCircle(point[0], point[1], circle2[0], circle2[1], r2);
+      drawScatterPlot(filteredData); 
+    });
+    drawScatterPlot(filteredData);
   });
   loadCircles();
 };
 
 function drawScatterPlot(allData) {
-  let circles = svg.selectAll('circle:not(.rangeCircles)');
+  let circles = svg.selectAll('circle:not(.rangeCircle)');
   let updatedCircles = circles.data(allData, d => d.id);
 
   let enterSelection = updatedCircles.enter();
   let newCircles = enterSelection.append('circle')
   .style("fill",  "pink")
-  .attr("r",  4)
+  .attr('id', 'dataPoints')
+  .attr("r",  3)
   .attr("cx", function(d) { return projection([d.lon, d.lat])[0]; })
   .attr("cy", function(d) { return projection([d.lon, d.lat])[1]; })
   .on('mouseover', function(d){
-    var TreeID = 'Tree ID:                            ' + d.TreeID;
-    var qSpecies = 'Species:                          ' + d.qSpecies;
-    var DBH = 'Diameter in Breast Height (inches):    ' + d.DBH;
-
-    document.getElementById('TreeID').innerHTML = TreeID;
+    var qSpecies = '<b>Species:                          </b>' + d.qSpecies;
+    var DBH = '<b>Diameter in Breast Height (inches):    </b>' + d.DBH;
     document.getElementById('qSpecies').innerHTML = qSpecies;
     document.getElementById('DBH').innerHTML = DBH;
   });
@@ -93,7 +106,7 @@ function loadCircles() {
   .style("fill",  "red")
   .style('opacity', 0.5)
   .attr("id", function(d) { return "circle_border" + d.i; })
-  .attr("class", "rangeCircles")
+  .attr("class", "rangeCircle")
   .attr("r",  65)
   .attr("cx", function(d) { return d.x; })
   .attr("cy", function(d) { return d.y; })
@@ -103,7 +116,7 @@ function loadCircles() {
   .style("fill", "gray")
   .style('opacity', 0.5)
   .attr("id", function(d) { return "circle" + d.i; })
-  .attr("class", "rangeCircles")
+  .attr("class", "rangeCircle")
   .attr("r", 60)
   .attr("cx", function(d) { return d.x; })
   .attr("cy", function(d) { return d.y; })
@@ -131,97 +144,17 @@ function loadCircles() {
  };
 };
 
-function loadIntersection() {
-  // loadCircles();
-  var interPoints = intersection(d3.select('#circle0').attr('cx'), 
-    d3.select('#circle0').attr('cy'), 
-    d3.select('#circle0').attr('r'), 
-    d3.select('#circle1').attr('cx'), 
-    d3.select('#circle1').attr('cy'), 
-    d3.select('#circle1').attr('r'));
-console.log(interPoints);
+function pointInCircle(x_p, y_p, x_c, y_c, r) {
+  return (distance(x_p, y_p, x_c, y_c) < r); 
+};
 
-var r1 = d3.select('#circle_border0').attr('r');
-var r2 = d3.select('#circle_border1').attr('r');
-// svg.append('circle')
-//   .style("fill",  "red")
-//   .attr("r",  5)
-//   .attr("cx", interPoints[0])
-//   .attr("cy", interPoints[2])
-
-// svg.append('circle')
-//   .style("fill",  "red")
-//   .attr("r",  5)
-//   .attr("cx", interPoints[1])
-//   .attr("cy", interPoints[3])
-
-  svg.append("path")
-  .attr("d", function() {
-    return "M" + interPoints[0] + "," + interPoints[2] + "A" + r1 + "," + r2 +
-      " 0 0,1 " + interPoints[1] + "," + interPoints[3]+ "A" + r1 + "," + r2 +
-      " 0 0,1 " + interPoints[0] + "," + interPoints[2];
-  })
-  .style('fill', 'red');   
+function distance(x_p, y_p, x_c, y_c) {
+  return Math.sqrt(Math.pow(x_p - x_c, 2) + Math.pow(y_p - y_c,2));
 };
 
 function update(rangeVal) {
   d3.select("#dbhRange-value").text(rangeVal);
   d3.select("#dbhRange").property("value", rangeVal);
 };
-
-function intersection(x0, y0, r0, x1, y1, r1) {
-        var a, dx, dy, d, h, rx, ry;
-        var x2, y2;
-
-        /* dx and dy are the vertical and horizontal distances between
-         * the circle centers.
-         */
-        dx = x1 - x0;
-        dy = y1 - y0;
-
-        /* Determine the straight-line distance between the centers. */
-        d = Math.sqrt((dy*dy) + (dx*dx));
-
-        /* Check for solvability. */
-        if (d > (r0 + r1)) {
-            /* no solution. circles do not intersect. */
-            return false;
-        }
-        if (d < Math.abs(r0 - r1)) {
-            /* no solution. one circle is contained in the other */
-            return false;
-        }
-
-        /* 'point 2' is the point where the line through the circle
-         * intersection points crosses the line between the circle
-         * centers.  
-         */
-
-        /* Determine the distance from point 0 to point 2. */
-        a = ((r0*r0) - (r1*r1) + (d*d)) / (2.0 * d) ;
-
-        /* Determine the coordinates of point 2. */
-        x2 = x0 + (dx * a/d);
-        y2 = y0 + (dy * a/d);
-
-        /* Determine the distance from point 2 to either of the
-         * intersection points.
-         */
-        h = Math.sqrt((r0*r0) - (a*a));
-
-        /* Now determine the offsets of the intersection points from
-         * point 2.
-         */
-        rx = -dy * (h/d);
-        ry = dx * (h/d);
-
-        /* Determine the absolute intersection points. */
-        var xi = parseInt(x2) + parseInt(rx);
-        var xi_prime = parseInt(x2) - parseInt(rx);
-        var yi = parseInt(y2) + parseInt(ry);
-        var yi_prime = parseInt(y2) - parseInt(ry);
-
-        return [xi, xi_prime, yi, yi_prime];
-    };
 
 d3.csv("/data/trees.csv", projectData, loadVisualization);
