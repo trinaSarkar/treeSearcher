@@ -1,0 +1,51 @@
+<html>
+<head>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="treeSearcher.css">
+</head>
+<body>
+	<script src="treeSearcher.js"></script>
+	<div id = "heading">
+		<br>
+		<br>
+		<span id = "title">Tree Searcher</span>
+		<br>
+		<span id = "byline">Search through the trees in San Francisco!</span>
+	</div>
+		<br><br><br><br><br>
+		<div id="filters">
+			<span id = "filterTitle"> Filters</span>
+			<hr align="left">
+			<div class="filterContainer" id="sliderContainer">
+				<br>
+				<span id = "filterSubtitle"> 1. Filter by tree diameter at breast height </span>
+				<br>
+				<span id = "filterInstructions"> Slide the range to filter by maximum tree diameter at breast height! </span>
+				<br>
+				<div>
+  				<span><input type="range" min="0" max="150" value="50" class="slider" id="myRange"></span>
+	 			<span class="range-slider__value"></span>
+	 		</div>
+			</div>
+			<div class="filterContainer">
+				<br>
+				<span id = "filterSubtitle"> 2. Highlight individual tree </span>
+				<br>
+				<span id = "filterInstructions"> Hover over a pink circle to learn about a specific tree! </span>
+				<br>
+				<div id="TreeInfo">
+					<span id='qSpecies'></span><br>
+					<span id='DBH'></span><br>
+				</div>
+			</div>
+			<div class = "filterContainer">
+				<br>
+				<span id = "filterSubtitle"> 3. Filter by location </span>
+				<br>
+				<span id = "filterInstructions"> Drag and resize the two red circles as you wish using their borders to find the trees in the intersection between the two circles! </span>
+				<br>
+			</div>
+		</div>
+
+</body>
+</html>
