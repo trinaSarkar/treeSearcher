@@ -124,32 +124,35 @@ function loadCircles() {
 
 function loadIntersection() {
   // loadCircles();
-  var interPoints = intersection(d3.select('#circle_border0').attr('cx'), 
-    d3.select('#circle_border0').attr('cy'), 
-    d3.select('#circle_border0').attr('r'), 
-    d3.select('#circle_border1').attr('cx'), 
-    d3.select('#circle_border1').attr('cy'), 
-    d3.select('#circle_border1').attr('r'));
+  var interPoints = intersection(d3.select('#circle0').attr('cx'), 
+    d3.select('#circle0').attr('cy'), 
+    d3.select('#circle0').attr('r'), 
+    d3.select('#circle1').attr('cx'), 
+    d3.select('#circle1').attr('cy'), 
+    d3.select('#circle1').attr('r'));
+console.log(interPoints);
 
-svg.append('circle')
-  .style("fill",  "red")
-  .attr("r",  5)
-  .attr("cx", interPoints[0])
-  .attr("cy", interPoints[2])
+var r1 = d3.select('#circle_border0').attr('r');
+var r2 = d3.select('#circle_border1').attr('r');
+// svg.append('circle')
+//   .style("fill",  "red")
+//   .attr("r",  5)
+//   .attr("cx", interPoints[0])
+//   .attr("cy", interPoints[2])
 
-svg.append('circle')
-  .style("fill",  "red")
-  .attr("r",  5)
-  .attr("cx", interPoints[1])
-  .attr("cy", interPoints[3])
+// svg.append('circle')
+//   .style("fill",  "red")
+//   .attr("r",  5)
+//   .attr("cx", interPoints[1])
+//   .attr("cy", interPoints[3])
 
-  // g.append("path")
-  // .attr("d", function() {
-  //   return "M" + interPoints[0] + "," + interPoints[2] + "A" + r1 + "," + r2 +
-  //     " 0 0,1 " + interPoints[1] + "," + interPoints[3]+ "A" + r1 + "," + r2 +
-  //     " 0 0,1 " + interPoints[0] + "," + interPoints[2];
-  // })
-  // .style('fill', 'red');   
+  svg.append("path")
+  .attr("d", function() {
+    return "M" + interPoints[0] + "," + interPoints[2] + "A" + r1 + "," + r2 +
+      " 0 0,1 " + interPoints[1] + "," + interPoints[3]+ "A" + r1 + "," + r2 +
+      " 0 0,1 " + interPoints[0] + "," + interPoints[2];
+  })
+  .style('fill', 'red');   
 };
 
 function update(rangeVal) {
