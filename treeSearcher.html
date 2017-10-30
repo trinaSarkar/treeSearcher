@@ -12,8 +12,14 @@
 			<br>
 			<span id = "filterInstructions"> Filter by tree diameter at breast height </span>
 			<br>
-  			<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+			<label for="dbhRange">
+         		Maximum Diameter of Breast Height = <span id="dbhRange-value"></span>
+  			</label>
+  			<input type="range" min="1" max="150" class="slider" value="50" onchange="update(value);" id="dbhRange">
 		</div>
-	</div>ß
+		<div id = "genButton">
+			<button type="button" onclick="loadIntersection();">Generate intersection</button>
+		</div>
+	</div>
 </body>
 </html>

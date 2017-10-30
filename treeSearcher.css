@@ -23,9 +23,9 @@ p {
 	src: url("/The Bravery Lite Ver.otf");
 }
 
-#grayCircle {
+/*.rangeCircles {
 	position: absolute;
-}
+}*/
 
 #slidecontainer {
     width: 100%; /* Width of the outside container */
@@ -74,4 +74,8 @@ p {
 #filterInstructions {
 	font-size: 30px;
 	padding-left: 20px;
+}
+
+label {
+	font-size: 20px;
 }
