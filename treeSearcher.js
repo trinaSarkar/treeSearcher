@@ -57,7 +57,16 @@ function drawScatterPlot(allData) {
   .style("fill",  "pink")
   .attr("r",  4)
   .attr("cx", function(d) { return projection([d.lon, d.lat])[0]; })
-  .attr("cy", function(d) { return projection([d.lon, d.lat])[1]; });
+  .attr("cy", function(d) { return projection([d.lon, d.lat])[1]; })
+  .on('mouseover', function(d){
+    var TreeID = 'Tree ID:                            ' + d.TreeID;
+    var qSpecies = 'Species:                          ' + d.qSpecies;
+    var DBH = 'Diameter in Breast Height (inches):    ' + d.DBH;
+
+    document.getElementById('TreeID').innerHTML = TreeID;
+    document.getElementById('qSpecies').innerHTML = qSpecies;
+    document.getElementById('DBH').innerHTML = DBH;
+  });
 
   let unselectedCircles = updatedCircles.exit();
   updatedCircles.exit().remove(); 
