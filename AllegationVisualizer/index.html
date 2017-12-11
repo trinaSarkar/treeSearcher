@@ -1,0 +1,195 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="allegationVisualizer.css">
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+	<script src="allegationVisualizer.js"></script>
+	<div id = "heading">
+		<br>
+		<span id = "title">VISUALIZING THE 2017 SEXUAL ALLEGATIONS</span>
+		<br>
+		<!-- <br> -->
+		<span id = "description"> Hover over the lines to view each individual's allegations as well as key achievements. Hover over the black circle at the bottom of each timeline to view their current career status and apply any of the filters at the top to cateogrize these individuals. </span>
+		<br>
+		<br>
+		<span id = "filters">
+			<input id="hollywoodBtn" class = "checkbox" type="checkbox">Hollywood</input>
+			<input id="washingtonBtn" class = "checkbox" type="checkbox">Washington</input>
+			<input id="positive" class = "checkbox" type="checkbox">No Outcome</input>
+			<input id="negative" class = "checkbox" type="checkbox">Negative Outcome</input>
+			<input id="allegationBtn" class = "checkbox" type="checkbox">Admitted All/Some Allegations</input>
+			<input id="deniedBtn" class = "checkbox" type="checkbox"> Denied All Allegations</input>
+		</span>
+	</div>
+		<br><br>
+	<div class = "main">
+		<div class="scroll">
+		<span class="col negativeOutcome hollywood denied">
+			<span class = "name">Kevin Spacey</span>
+			<br>
+			<img src="data/kevin.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key </br>Event </span>
+			<div class="timeline" id="kevin">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class="col negativeOutcome admitted hollywood">
+			<span class = "name">James Toback</span>
+			<br>
+			<img src="data/toback.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key</br> Event </span>
+			<div class="timeline" id="james">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class="col negativeOutcome hollywood denied">
+			<span class = "name">Charlie Rose</span>
+			<br>
+			<img src="data/charlierose.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key </br> Event </span>
+			<div class="timeline" id="charlie">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class="col negativeOutcome hollywood denied">
+			<span class = "name">Louis C.K.</span>
+			<br>
+			<img src="data/louisck.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key </br> Event </span>
+			<div class="timeline" id="louis">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class="col negativeOutcome hollywood denied">
+			<span class = "name">Matt Lauer</span>
+			<br>
+			<img src="data/mattlauer.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key </br> Event </span>
+			<div class="timeline" id="matt">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class="col negativeOutcome hollywood denied">
+			<span class = "name">Harvey Weinstein</span>
+			<br>
+			<img src="data/weinstein.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key </br> Event </span>
+			<div class="timeline" id="harvey">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class="col negativeOutcome admitted hollywood">
+			<span class = "name">Brett Ratner</span>
+			<br>
+			<img src="data/ratner.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key </br> Event </span>
+			<div class="timeline" id="brett">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class="col positiveOutcome washington denied">
+			<span class = "name ">Al Franken</span>
+			<br>
+			<img src="data/franken.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key</br> Event </span>
+			<div class="timeline" id="al">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class="col positiveOutcome admitted washington">
+			<span class = "name">George H. W. Bush</span>
+			<br>
+			<img src="data/bush.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key </br> Event </span>
+			<div class="timeline" id="george">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class="col positiveOutcome admitted washington">
+			<span class = "name">Donald Trump</span>
+			<br>
+			<img src="data/trump.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key </br>Event </span>
+			<div class="timeline" id="donald">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class="col positiveOutcome admitted washington ">
+			<span class = "name">Roy Moore</span>
+			<br>
+			<img src="data/roymoore.png">
+			<br>
+			<span class = "subtitle" id = "allegation"> Allegation </span>
+			<span class = "subtitle" id = "achievement"> Key </br>Event </span>
+			<div class="timeline" id="roy">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+		<span class = "col">
+			<div id = "legend">
+  				<div class="container left">
+	    		</div>
+  				<div class="container right">
+  				</div>
+			</div>
+		</span>
+	</div>
+	</div>
+</body>
+</html>

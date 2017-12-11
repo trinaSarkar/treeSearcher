@@ -56,6 +56,7 @@ function filter() {
     pointInCircle(point[0], point[1], circle2[0], circle2[1], r2) && d.DBH < value && d.DBH != ""});
   drawScatterPlot(filteredData);  
 }
+
 function drawScatterPlot(allData) {
   let circles = svg.selectAll('circle:not(.rangeCircle)');
   let updatedCircles = circles.data(allData, d => d.id);
